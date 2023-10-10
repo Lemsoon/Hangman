@@ -11,10 +11,29 @@
     <main>
       <nav class="container">
         <ul>
-          <li><a href="#">Start Game</a></li>
-          <li><a href="#">Reset Game</a></li>
+          <li><a href="start-game">Start Game</a></li>
+          <li><a href="reset-game">Reset Game</a></li>
         </ul>
       </nav>
+
+      <article class="about-hangman">
+        <h2>Game's Rules</h2>
+        <h1>Setup</h1>
+        <ol>
+          <li>Players take turns guessing letters in the word.</li>
+          <li>If a guessed letter is correct, fill it in the blank spaces.</li>
+          <li> If a guessed letter is incorrect, start drawing the hangman.</li>
+          <li>Limited incorrect guesses (5).</li>
+          <li>The game ends when 
+            <li>Players guess the word correctly (they win).
+            </li>
+            <li>The hangman is fully drawn (the guesser loses).</li>
+          </li>
+          <li>8. Reveal the word if players guess it correctly.
+         </li>
+        </ol>
+      </article>
+      <div class="picture-icon"></div>
       <img src="svg/hangman.svg" alt="" />
       <p class="guess">What letter do you choose?</p>
       <div>

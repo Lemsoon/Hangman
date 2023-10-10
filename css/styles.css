@@ -27,4 +27,9 @@ main {
 .guess {
   margin-left: 1rem;
   margin-top: 2rem;
+  
+}
+
+.about-hangman{
+  font-weight: bold;
 }

@@ -1,6 +1,5 @@
-document.getElementById("guessButton").addEventListener("click", guess);
 document.getElementById("startButton").addEventListener("click", startGame);
-let wrongGuesses = 0;
+
 const wordList = [
   "Programming",
   "Computer",
@@ -37,32 +36,17 @@ const wordList = [
   "Fall",
   "spring",
 ];
-let chosenWord;
-
 console.log("There are ", wordList.length, " words to choose from");
+let letterButtons;
 
 function startGame() {
-  let randomNumber = Math.floor(Math.random() * wordList.length);
-  chosenWord = wordList[randomNumber];
-  console.log("The chosen word is: ", chosenWord);
+  console.log("Starting game...");
+  letterButtons = document.querySelectorAll("#alphabet-container>button");
+  letterButtons.forEach((button) => {
+    button.addEventListener("click", checkLetter);
+  });
 }
 
-function guess() {
-  let userInput = document.getElementById("userInput");
-
-  if (userInput.value === "") {
-    return console.log("You didnt enter a letter.");
-  } else if (chosenWord.includes(userInput.value)) {
-    console.log("The word ", chosenWord, " has ", userInput.value, " in it.");
-    let chosenWordArray = chosenWord.split("");
-    let i = 0;
-    chosenWordArray.forEach((letter) => {
-      if (userInput.value == letter) {
-        console.log("The word as ", userInput.value, " at spot", i + 1);
-      }
-      i++;
-    });
-  } else {
-    console.log(chosenWord, "does not have ", userInput.value, " in it.");
-  }
+function checkLetter() {
+  console.log(letterButtons);
 }

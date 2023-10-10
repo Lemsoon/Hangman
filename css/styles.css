@@ -6,30 +6,32 @@
 body {
   background-color: gray;
 }
-h1 {
-  font-weight: bold;
-  font-size: 3rem;
-  text-align: center;
-  text-decoration: underline black 0.2rem;
-}
-img {
-  border: 1px rgb(179, 172, 172) solid;
-  width: 16rem;
-}
-
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
-.guess {
-  margin-left: 1rem;
-  margin-top: 2rem;
-  
+h1 {
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  text-decoration: underline black 0.2rem;
+}
+h2 {
+  text-align: center;
+  font-size: 1.7rem;
+}
+img {
+  border: 1px rgb(179, 172, 172) solid;
+  width: 16rem;
 }
 
-.about-hangman{
+.about-hangman {
   font-weight: bold;
+}
+li {
+  list-style: none;
+  text-align: center;
+  padding: 0.2rem;
 }

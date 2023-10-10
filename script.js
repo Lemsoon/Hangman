@@ -75,7 +75,7 @@ for (let i = 65; i <= 90; i++) {
   alphabet.push(String.fromCharCode(i));
 }
 
-let keyboardContainer = document.querySelector("keyboard-container");
+let keyboardContainer = document.querySelector("alphabet-container");
 
 // adding each letter to keyboard-container
 for (let j = 0; j < alphabet.length; j++) {

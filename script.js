@@ -75,11 +75,12 @@ for (let i = 65; i <= 90; i++) {
   alphabet.push(String.fromCharCode(i));
 }
 
-let alphabetContainer = document.getElementById("alphabet-container");
+let keyboardContainer = document.querySelector("alphabet-container");
 
 // adding each letter to keyboard-container
 for (let j = 0; j < alphabet.length; j++) {
-  let letterElemet = document.createElement("span"); 
-  letterElemet.textContent = alphabet[j];
-  alphabetContainer.appendChild(letterElemet);
+  letterElement.textContent = alphabet[j];
+  keyboardContainer.appendChild(letterElemet);
 }
+
+console.log(keyboardContainer);

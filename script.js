@@ -79,7 +79,7 @@ let keyboardContainer = document.querySelector("keyboard-container");
 
 // adding each letter to keyboard-container
 for (let j = 0; j < alphabet.length; j++) {
-  letterElemet.textContetn = alphabet[j];
+  letterElement.textContent = alphabet[j];
   keyboardContainer.appendChild(letterElemet);
 }
 

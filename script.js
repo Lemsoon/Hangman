@@ -3,7 +3,13 @@ let main = document.querySelector("main").appendChild(wordContainer);
 let letterButtons;
 wordContainer.style = "Display: flex; justify-content: center; text-decoration: underline 1px black";
 let letterBox;
-let letterIndex = 0;
+let correctLetters = 0;
+let guesses = 0;
+let hangedmanHead = document.getElementById("head");
+let hangedmanLegs = document.getElementById("legs");
+let hangedmanArms = document.getElementById("arms");
+let hangedmanBody = document.getElementById("body");
+let hangedmanScaffold = document.getElementById("scaffold");
 
 const wordList = [
   "Programming",
@@ -51,6 +57,11 @@ console.log("There are " + wordList.length + " words to choose from \nThe chosen
 
 function startGame() {
   console.log("Starting game...");
+  hangedmanHead.style.opacity = 0;
+  hangedmanLegs.style.opacity = 0;
+  hangedmanArms.style.opacity = 0;
+  hangedmanBody.style.opacity = 0;
+  hangedmanScaffold.style.opacity = 0;
   letterButtons = document.querySelectorAll("#alphabet-container>button");
   letterButtons.forEach((button) => {
     button.addEventListener("click", checkLetter);
@@ -59,22 +70,59 @@ function startGame() {
   //creates a seperate <p> for each letter of the secret word.
   secretWord.forEach((letter) => {
     letterBox = document.createElement("p");
-    letterBox.id = letterIndex;
     wordContainer.appendChild(letterBox);
     letterBox.textContent = letter;
     letterBox.style = "margin-left: .5rem; color: rgba(0, 0, 0, 0) ";
-    letterIndex++;
   });
 }
 
 function checkLetter(event) {
-  let clickedLetter = event.target.innerText;
+  guesses++;
+  hangTheMan(guesses);
+
+  console.log(guesses);
+  let clickedLetter = event.target;
+  let clickedLetterText = clickedLetter.innerText;
+  clickedLetter.style = "background-color: black;";
+  clickedLetter.removeEventListener("click", checkLetter);
   letterBoxArray = Array.from(wordContainer.getElementsByTagName("p"));
 
   letterBoxArray.forEach((letterBox) => {
     let letter = letterBox.textContent;
-    if (clickedLetter == letter) {
+    //Checks if chosen letter is in the word
+    if (clickedLetterText == letter) {
       letterBox.style.color = "rgba(0, 0, 0, 1)";
+      clickedLetter.style = "background-color: black;";
+      clickedLetter.removeEventListener("click", checkLetter);
+      correctLetters++;
+      console.log("correct guesses", correctLetters);
+    }
+    //Win detection
+    if (correctLetters == letterBoxArray.length) {
+      console.log("WIN");
     }
   });
+}
+
+function hangTheMan(num) {
+  console.log("hangin");
+  switch (num) {
+    case 1:
+      hangedmanScaffold.style.opacity = 1;
+      break;
+    case 2:
+      hangedmanHead.style.opacity = 1;
+      break;
+    case 3:
+      hangedmanBody.style.opacity = 1;
+      break;
+    case 4:
+      hangedmanArms.style.opacity = 1;
+      break;
+    case 5:
+      console.log("THE MAN DIED");
+      return (hangedmanLegs.style.opacity = 1);
+
+      break;
+  }
 }

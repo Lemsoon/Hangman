@@ -79,8 +79,7 @@ let alphabetContainer = document.getElementById("alphabet-container");
 
 // adding each letter to keyboard-container
 for (let j = 0; j < alphabet.length; j++) {
-  let letterElement = document.createElement("span"); 
+  let letterElement = document.createElement("span");
   letterElement.textContent = alphabet[j];
   alphabetContainer.appendChild(letterElement);
 }
-

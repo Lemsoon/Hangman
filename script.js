@@ -245,9 +245,6 @@ let correctLetters = 0;
 let win = false;
 let wordContainer = document.createElement("div");
 let main = document.querySelector("main");
-main.appendChild(wordContainer);
-wordContainer.style = "Display: flex; justify-content: center";
-document.getElementById("startButton").addEventListener("click", startGame);
 let letterButtons = [];
 const wordList = [
   "answer",
@@ -393,6 +390,11 @@ const wordList = [
   "Time",
   "Algorithm",
 ];
+
+main.appendChild(wordContainer);
+wordContainer.style = "Display: flex; justify-content: center";
+document.getElementById("startButton").addEventListener("click", startGame);
+
 //#endregion
 
 function resetGame() {
@@ -455,6 +457,7 @@ function checkButton(event) {
       }
       if (correctLetters == secretWord.length) {
         console.log("win");
+        document.body.style.backgroundColor = "green";
         win = true;
       }
       i++;
@@ -490,6 +493,7 @@ function hangHim() {
     case 5:
       bodyparts[1].style.opacity = 1;
       console.log("The man was hanged");
+      document.body.style.backgroundColor = "red";
       break;
   }
 }

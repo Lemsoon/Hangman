@@ -122,5 +122,6 @@ function hangTheMan(num) {
     case 5:
       console.log("THE MAN DIED");
       return (hangedmanLegs.style.opacity = 1);
+      break;
   }
 }

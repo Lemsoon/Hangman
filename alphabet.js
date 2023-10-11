@@ -8,7 +8,7 @@ for (let i = 65; i <= 90; i++) {
 
 const alphabetContainer = document.getElementById("alphabet-container");
 
-const useInput = document.getElementById("usersInput");
+const useInput = document.getElementById("userInput");
 
 // adding each letter to keyboard-container
 for (let j = 0; j < alphabet.length; j++) {
@@ -19,7 +19,7 @@ for (let j = 0; j < alphabet.length; j++) {
 
 
     letterElement.addEventListener("click", function(){
-        useInput.value = letter; 
+        useInput.value += letter; 
     })
 
   alphabetContainer.appendChild(letterElement);

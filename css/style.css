@@ -1,0 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background-color: gray;
+  }
+  h1 {
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    text-decoration: underline black 0.2rem;
+  }
+  img {
+    border: 1px rgb(179, 172, 172) solid;
+    width: 16rem;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .guess {
+    margin-left: 1rem;
+    margin-top: 2rem;
+    
+  }
+  
+  .about-hangman{
+    font-weight: bold;
+  }
+  

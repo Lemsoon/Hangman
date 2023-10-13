@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background-image: linear-gradient(rgb(20, 147, 250), rgb(247, 232, 202));
+  background-image: linear-gradient(rgb(20, 147, 250), rgb(244, 250, 168));
 }
 main {
   display: flex;

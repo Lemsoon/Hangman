@@ -206,18 +206,15 @@ function startGame() {
 }
 
 function handleInput(input) {
-  // Convert the input to uppercase
   input = input.toUpperCase();
-  guessedLetters.push(input); // Add the letter to the guessed letters array
-  checkButton({ target: { innerText: input } }); // Call the checkButton function with the uppercase input
+  guessedLetters.push(input);
+  checkButton({ target: { innerText: input } });
 }
 
 function onEnter(event) {
   if (event.key === "Enter") {
-    // Get the input value
     const input = document.getElementById("userInput").value;
     handleInput(input);
-    // Clear input box
     document.getElementById("userInput").value = "";
   }
 }
@@ -233,7 +230,6 @@ function checkButton(event) {
   }
 
   if (!looped) {
-    //let i = 0;
     let correct = false;
     let index = 0;
     secretWord.forEach((letter) => {

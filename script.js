@@ -1,13 +1,18 @@
 //#region
 let hangedManSVG = document.querySelector("svg");
+let letterElement;
 let bodyparts = hangedManSVG.querySelectorAll("path");
 let looped = false;
-let letterBox;
 let correctLetters = 0;
 let win = false;
+let lost = false;
 let wordContainer = document.createElement("div");
 let main = document.querySelector("main");
 let letterButtons = [];
+let wrongGuesses = 0;
+let secretWord;
+let guessedLetters = [];
+
 const wordList = [
   "answer",
   "base",
@@ -152,35 +157,40 @@ const wordList = [
   "Time",
   "Algorithm",
 ];
-
 main.appendChild(wordContainer);
-wordContainer.style = "Display: flex; justify-content: center";
+wordContainer.style = "display: flex; justify-content: center";
 document.getElementById("startButton").addEventListener("click", startGame);
 
 //#endregion
 
+//reset everything to it's default state.
 function resetGame() {
+  document.body.style.backgroundImage = "linear-gradient(rgb(20, 147, 250), rgb(244, 250, 168)";
   looped = false;
-  correctGuesses = 0;
+  correctLetters = 0;
   wrongGuesses = 0;
+  userInput.value = "";
   letterButtons = document.querySelectorAll("#alphabet-container>button");
+  document.getElementById("resultMessage").textContent = "";
+  wordContainer.innerHTML = "";
+  secretWord = wordList[Math.floor(Math.random() * wordList.length)];
+  secretWord = secretWord.toUpperCase();
+  secretWord = secretWord.split("");
+  document.body.style.backgroundColor = "white";
+  document.getElementById("userInput").addEventListener("keyup", onEnter);
+
+  //reset style
   letterButtons.forEach((button) => {
+    button.className = "letterButton";
+
     button.addEventListener("click", checkButton);
   });
 
   bodyparts.forEach((part) => {
     part.style.opacity = 0;
   });
-}
 
-function startGame() {
-  resetGame();
-  secretWord = wordList[Math.floor(Math.random() * wordList.length)];
-  secretWord = secretWord.toUpperCase();
-  secretWord = secretWord.split("");
-  console.log(secretWord);
-
-  //put the word on screen, but make letters invisible. Create underline.
+  //
   secretWord.forEach((letter) => {
     letterBox = document.createElement("p");
     wordContainer.appendChild(letterBox);
@@ -188,51 +198,72 @@ function startGame() {
     letterBox.style =
       "width: .5rem; margin-left: .5rem; color: rgba(0, 0, 0, 0); text-decoration: underline 1px black ";
   });
+  console.log(secretWord);
+}
+
+function startGame() {
+  resetGame();
+}
+
+function handleInput(input) {
+  // Convert the input to uppercase
+  input = input.toUpperCase();
+  guessedLetters.push(input); // Add the letter to the guessed letters array
+  checkButton({ target: { innerText: input } }); // Call the checkButton function with the uppercase input
+}
+
+function onEnter(event) {
+  if (event.key === "Enter") {
+    // Get the input value
+    const input = document.getElementById("userInput").value;
+    handleInput(input);
+    // Clear input box
+    document.getElementById("userInput").value = "";
+  }
 }
 
 function checkButton(event) {
   let button = event.target;
   let chosenLetter = button.innerText;
-  button.removeEventListener("click", checkButton);
-  button.style =
-    "background-color: gray; width: 2rem; height: 2rem; fontWeight: bold; border: black 1px solid; margin: .2rem";
+  button.className = "letterButtonClicked";
+
+  //if event source is from button, remove event listener.
+  if (event.target.tagName === "BUTTON") {
+    button.removeEventListener("click", checkButton);
+  }
 
   if (!looped) {
-    //i to compare to the lenght of a word, only when "i == wordLenght" will guess go up. goes up wordLenght amount each guess otherwise.
-    let i = 0;
+    //let i = 0;
     let correct = false;
-
-    //Checks if the secretWord array has the clicked letter in it
+    let index = 0;
     secretWord.forEach((letter) => {
-      if (letter.includes(chosenLetter)) {
+      if (letter === chosenLetter) {
         correctLetters++;
         console.log("Correct letters: ", correctLetters);
         correct = true;
-        letterBoxArray = Array.from(wordContainer.getElementsByTagName("p"));
-        letterBoxArray.forEach((letterBox) => {
-          let letter = letterBox.textContent;
-          //Checks if chosen letter is in the word
-          if (chosenLetter == letter) {
-            letterBox.style.color = "rgba(0, 0, 0, 1)";
-          }
-        });
+
+        let letterBox = wordContainer.getElementsByTagName("p")[index];
+        letterBox.style.color = "rgba(0, 0, 0, 1)";
       }
       if (correctLetters == secretWord.length) {
         console.log("win");
-        document.body.style.backgroundColor = "green";
+        document.body.style.backgroundImage = "linear-gradient(rgb(0, 255, 0), rgb(244, 250, 168))";
         win = true;
+        document.getElementById("resultMessage").textContent = "Congratulations! You win!";
+        letterButtons.forEach((button) => {
+          button.removeEventListener("click", checkButton);
+        });
+        document.getElementById("userInput").removeEventListener("keyup", onEnter);
       }
-      i++;
+      index++;
     });
 
-    if (i === secretWord.length) {
-      if (!correct) {
-        wrongGuesses++;
-        console.log("Wrong guesses: ", wrongGuesses);
-      }
-
-      looped = true;
+    if (!correct) {
+      wrongGuesses++;
+      console.log("Wrong guesses: ", wrongGuesses);
     }
+
+    looped = true;
     hangHim(); //handles the unveiling of the hanging.
     return (looped = false), (correct = false);
   }
@@ -255,7 +286,38 @@ function hangHim() {
     case 5:
       bodyparts[1].style.opacity = 1;
       console.log("The man was hanged");
-      document.body.style.backgroundColor = "red";
+      document.getElementById("resultMessage").textContent = "The man was hanged, you lost.";
+      lost = true;
+      document.body.style.backgroundImage = "linear-gradient(rgb(255, 0, 0), rgb(244, 250, 168))";
+      letterButtons.forEach((button) => {
+        button.removeEventListener("click", checkButton);
+      });
+      document.getElementById("userInput").removeEventListener("keyup", onEnter);
+
       break;
   }
 }
+
+let alphabet = [];
+
+for (let i = 65; i <= 90; i++) {
+  alphabet.push(String.fromCharCode(i));
+}
+
+let alphabetContainer = document.getElementById("alphabet-container");
+let userInput = document.createElement("div");
+// style input displya
+
+alphabetContainer.appendChild(userInput);
+
+for (let j = 0; j < alphabet.length; j++) {
+  const letter = alphabet[j];
+  letterElement = document.createElement("button");
+
+  letterElement.textContent = letter;
+  letterElement.className = "letterButton";
+
+  alphabetContainer.appendChild(letterElement);
+}
+
+document.getElementById("resetButton").addEventListener("click", resetGame);

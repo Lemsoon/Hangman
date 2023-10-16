@@ -1,36 +1,68 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  body {
-    background-color: gray;
-  }
-  h1 {
-    font-weight: bold;
-    font-size: 3rem;
-    text-align: center;
-    text-decoration: underline black 0.2rem;
-  }
-  img {
-    border: 1px rgb(179, 172, 172) solid;
-    width: 16rem;
-  }
-  
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .guess {
-    margin-left: 1rem;
-    margin-top: 2rem;
-    
-  }
-  
-  .about-hangman{
-    font-weight: bold;
-  }
-  
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(rgb(20, 147, 250), rgb(244, 250, 168));
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px black solid;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+h1 {
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  text-decoration: underline black 0.2rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+h2 {
+  text-align: center;
+  font-size: 1.7rem;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+img {
+  border: 1px rgb(179, 172, 172) solid;
+  width: 16rem;
+}
+
+
+li {
+  list-style: none;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.2rem;
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+Button {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:18px;
+	font-weight:bold;
+	padding:9px 24px;
+	text-decoration:none;
+  margin: 1px;
+	text-shadow:0px 1px 0px #ffffff;
+}
+Button:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+

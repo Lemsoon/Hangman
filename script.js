@@ -176,7 +176,6 @@ function checkButton(event) {
   let chosenLetter = button.innerText;
   button.className = "letterButtonClicked";
 
-  //if event source is from button, remove event listener.
   if (event.target.tagName === "BUTTON") {
     button.removeEventListener("click", checkButton);
   }

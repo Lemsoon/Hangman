@@ -59,3 +59,15 @@ li {
   margin: 0.1rem;
   border: 1px solid black;
 }
+
+.controlButtons {
+  width: 6rem;
+  height: 3rem;
+  margin: 1rem;
+  font-weight: bold;
+  border: 1px black solid;
+  border-radius: 0.5rem;
+}
+.controlButtons:hover {
+  background-color: rgb(217, 217, 217);
+}

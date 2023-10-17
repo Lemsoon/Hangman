@@ -6,156 +6,95 @@ let looped = false;
 let correctLetters = 0;
 let win = false;
 let lost = false;
-let wordContainer = document.createElement("div");
+let wordContainer = document.getElementById("wordContainer");
 let main = document.querySelector("main");
 let letterButtons = [];
 let wrongGuesses = 0;
 let secretWord;
 let guessedLetters = [];
+let loseWord = "";
 
 const wordList = [
-  "answer",
-  "base",
-  "began",
-  "begin",
-  "between",
-  "book",
-  "both",
-  "car",
-  "care",
-  "carry",
-  "children",
-  "city",
-  "close",
-  "color",
-  "country",
-  "cover",
-  "cross",
-  "cut",
-  "dont",
-  "draw",
-  "ease",
-  "eat",
-  "example",
-  "eye",
-  "face",
-  "far",
-  "farm",
-  "feet",
-  "few",
-  "fish",
-  "food",
-  "found",
-  "four",
-  "friend",
-  "got",
-  "group",
-  "grow",
-  "hard",
-  "head",
-  "hear",
-  "horse",
-  "idea",
-  "keep",
-  "last",
-  "late",
-  "learn",
-  "left",
-  "let",
-  "letter",
-  "life",
-  "main",
-  "mark",
-  "might",
-  "mile",
-  "mountain",
-  "music",
-  "never",
-  "next",
-  "night",
-  "north",
-  "often",
-  "once",
-  "open",
-  "own",
-  "page",
-  "paper",
-  "plant",
-  "press",
-  "real",
-  "river",
-  "room",
-  "run",
-  "saw",
-  "school",
-  "science",
-  "sea",
-  "second",
-  "seem",
-  "should",
-  "stand",
-  "start",
-  "state",
-  "still",
-  "stop",
-  "story",
-  "study",
-  "sun",
-  "sure",
-  "those",
-  "thought",
-  "together",
-  "took",
-  "tree",
-  "until",
-  "walk",
-  "watch",
-  "while",
-  "white",
-  "wood",
-  "Programming",
-  "Computer",
-  "Table",
-  "Chair",
-  "Window",
   "Car",
-  "Asphalt",
-  "Building",
-  "Bus",
+  "House",
+  "Boat",
   "Phone",
-  "Time",
-  "Frame",
-  "Travel",
-  "School",
+  "Book",
+  "Chair",
+  "Table",
+  "Laptop",
+  "Bicycle",
+  "Television",
+  "Refrigerator",
+  "Cup",
+  "Bottle",
+  "Glasses",
+  "Watch",
+  "Pencil",
+  "Notebook",
   "Bag",
-  "Airplane",
+  "Shoes",
+  "Hat",
+  "Clock",
+  "Spoon",
   "Fork",
+  "Plate",
   "Knife",
-  "Roof",
-  "Floor",
-  "Wheel",
-  "Tire",
-  "Game",
-  "Developer",
-  "Message",
-  "Hangman",
-  "Flag",
-  "Language",
-  "Tree",
-  "Leaf",
-  "Summer",
-  "Winter",
-  "Fall",
-  "spring",
-  "word",
-  "Alphabet",
-  "Semicolon",
-  "Javascript",
-  "Colors",
-  "Animal",
-  "Super",
-  "Time",
-  "Algorithm",
+  "Key",
+  "Wallet",
+  "Brush",
+  "Comb",
+  "Towel",
+  "Soap",
+  "Toothbrush",
+  "Toothpaste",
+  "Shampoo",
+  "Conditioner",
+  "Lamp",
+  "Candle",
+  "Pillow",
+  "Blanket",
+  "Bed",
+  "Socks",
+  "Jacket",
+  "Scarf",
+  "Gloves",
+  "Umbrella",
+  "Headphones",
+  "Camera",
+  "Printer",
+  "Mouse",
+  "Keyboard",
+  "Monitor",
+  "Speakers",
+  "Router",
+  "Modem",
+  "Charger",
+  "Battery",
+  "Flashlight",
+  "Screwdriver",
+  "Hammer",
+  "Nail",
+  "Paintbrush",
+  "Canvas",
+  "Easel",
+  "Palette",
+  "Sketchbook",
+  "Eraser",
+  "Ruler",
+  "Stapler",
+  "Tape",
+  "Glue",
+  "Scissors",
+  "Paperclip",
+  "Binder",
+  "Envelope",
+  "Stamp",
+  "Postcard",
+  "Calendar",
+  "Diary",
+  "Agenda",
+  "Planner",
 ];
 main.appendChild(wordContainer);
 wordContainer.style = "display: flex; justify-content: center";
@@ -165,6 +104,7 @@ document.getElementById("startButton").addEventListener("click", startGame);
 
 //reset everything to it's default state.
 function resetGame() {
+  guessedLetters = [];
   document.body.style.backgroundImage = "linear-gradient(rgb(20, 147, 250), rgb(244, 250, 168)";
   looped = false;
   correctLetters = 0;
@@ -174,6 +114,7 @@ function resetGame() {
   document.getElementById("resultMessage").textContent = "";
   wordContainer.innerHTML = "";
   secretWord = wordList[Math.floor(Math.random() * wordList.length)];
+  loseWord = secretWord;
   secretWord = secretWord.toUpperCase();
   secretWord = secretWord.split("");
   document.body.style.backgroundColor = "white";
@@ -209,13 +150,24 @@ function handleInput(input) {
   input = input.toUpperCase();
   guessedLetters.push(input);
   checkButton({ target: { innerText: input } });
+  console.log(guessedLetters);
 }
 
 function onEnter(event) {
   if (event.key === "Enter") {
-    const input = document.getElementById("userInput").value;
-    handleInput(input);
-    document.getElementById("userInput").value = "";
+    let input = document.getElementById("userInput").value;
+    input = input.toUpperCase();
+
+    letterButtons.forEach((button) => {
+      if (button.innerText == input) {
+        button.removeEventListener("click", checkButton);
+        button.className = "letterButtonClicked";
+      }
+    });
+    if (!guessedLetters.includes(input)) {
+      handleInput(input);
+      document.getElementById("userInput").value = "";
+    }
   }
 }
 
@@ -245,7 +197,8 @@ function checkButton(event) {
         console.log("win");
         document.body.style.backgroundImage = "linear-gradient(rgb(0, 255, 0), rgb(244, 250, 168))";
         win = true;
-        document.getElementById("resultMessage").textContent = "Congratulations! You win!";
+        document.getElementById("resultMessage").textContent =
+          "You saved the man! \nPress the 'reset game' button to play again!";
         letterButtons.forEach((button) => {
           button.removeEventListener("click", checkButton);
         });
@@ -282,7 +235,7 @@ function hangHim() {
     case 5:
       bodyparts[1].style.opacity = 1;
       console.log("The man was hanged");
-      document.getElementById("resultMessage").textContent = "The man was hanged, you lost.";
+      document.getElementById("resultMessage").textContent = "The man was hanged, you lost. The word was " + loseWord;
       lost = true;
       document.body.style.backgroundImage = "linear-gradient(rgb(255, 0, 0), rgb(244, 250, 168))";
       letterButtons.forEach((button) => {

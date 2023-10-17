@@ -10,22 +10,18 @@
     <h1>HANGMAN</h1>
     <main>
       <nav class="container">
-        <button id="startButton" type="button">Start Game</button>
-        <button id="resetButton" type="reset">Reset Game</button>
+        <button id="startButton" type="button" class="controlButtons">Start Game</button>
+        <button id="resetButton" type="reset" class="controlButtons">Reset Game</button>
       </nav>
       <article class="about-hangman">
         <h2>Game's Rules</h2>
         <ul>
-          <li>Players take turns guessing letters in the word.</li>
-          <li>If a guessed letter is correct, fill it in the blank spaces.</li>
-          <li>If a guessed letter is incorrect, start drawing the hangman.</li>
-          <li>Limited incorrect guesses (5).</li>
-          <li>The game ends when</li>
-          <li>Players guess the word correctly (they win).</li>
-          <li>The hangman is fully drawn (the guesser loses).</li>
-          <li>Reveal the word if players guess it correctly.</li>
+          <li>In the game of hangman you need to guess what the hidden word is.</li>
+          <li>You have <i>5 tries</i>, if you get the wrong letter 5 times, the man is hanged.</li>
+          <li>Once you have won or lost, you can play again by using the buttons at the top of the page.</li>
         </ul>
       </article>
+
       <div>
         <h2 id="resultMessage"></h2>
         <svg
@@ -71,11 +67,10 @@
           />
         </svg>
       </div>
+      <div id="wordContainer"></div>
       <input type="text" id="userInput" maxlength="1" />
-
       <div id="alphabet-container"></div>
     </main>
-
     <script src="script.js"></script>
   </body>
 </html>
